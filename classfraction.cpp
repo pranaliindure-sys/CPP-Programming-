@@ -1,69 +1,59 @@
 #include <iostream>
 using namespace std;
 
-class Fraction
+class Time
 {
-    int num, den;
+    int h, m, s;
 
 public:
     void accept()
     {
-        cout << "Enter numerator and denominator: ";
-        cin >> num >> den;
+        cout << "Enter hours, minutes and seconds: ";
+        cin >> h >> m >> s;
     }
 
-    Fraction add(Fraction f)
+    Time add(Time t)
     {
-        Fraction r;
-        r.num = num * f.den + f.num * den;
-        r.den = den * f.den;
-        return r;
-    }
+        Time r;
 
-    Fraction subtract(Fraction f)
-    {
-        Fraction r;
-        r.num = num * f.den - f.num * den;
-        r.den = den * f.den;
+        r.s = s + t.s;
+        r.m = m + t.m + r.s / 60;
+        r.s = r.s % 60;
+
+        r.h = h + t.h + r.m / 60;
+        r.m = r.m % 60;
+
         return r;
     }
 
     void display()
     {
-        int a = num, b = den, t;
+        cout << "Resultant Time = ";
 
-        while(b != 0)
-        {
-            t = a % b;
-            a = b;
-            b = t;
-        }
+        if(h < 10) cout << "0";
+        cout << h << ":";
 
-        num = num / a;
-        den = den / a;
+        if(m < 10) cout << "0";
+        cout << m << ":";
 
-        cout << num << "/" << den << endl;
+        if(s < 10) cout << "0";
+        cout << s << endl;
     }
 };
 
 int main()
 {
-    Fraction f1, f2, sum, sub;
+    Time t1, t2, t3;
 
-    cout << "Enter first fraction:\n";
-    f1.accept();
+    cout << "Enter first time:\n";
+    t1.accept();
 
-    cout << "Enter second fraction:\n";
-    f2.accept();
+    cout << "Enter second time:\n";
+    t2.accept();
 
-    sum = f1.add(f2);
-    sub = f1.subtract(f2);
+    t3 = t1.add(t2);
 
-    cout << "Addition = ";
-    sum.display();
-
-    cout << "Subtraction = ";
-    sub.display();
+    t3.display();
 
     return 0;
 }
